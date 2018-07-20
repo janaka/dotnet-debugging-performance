@@ -1,0 +1,83 @@
+{
+    // Use IntelliSense to find out which attributes exist for C# debugging
+    // Use hover for the description of the existing attributes
+    // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+    "version": "0.2.0",
+    "configurations": [
+         {
+             "name": "Docker: Launch",
+             "type": "coreclr",
+             "request": "launch",
+             "preLaunchTask": "Docker: Run",
+             // If you have changed target frameworks, make sure to update the program path.
+             "program": "/app/debug-performance-test.dll",
+             "args": [],
+             "cwd": "/app/",
+             "stopAtEntry": false,
+             "internalConsoleOptions": "openOnSessionStart",
+             "launchBrowser": {
+                 "enabled": true,
+                 "args": "${auto-detect-url}",
+                 "windows": {
+                     "command": "cmd.exe",
+                     "args": "/C start ${auto-detect-url}"
+                 },
+                 "osx": {
+                     "command": "open"
+                 },
+                 "linux": {
+                     "command": "xdg-open"
+                 }
+             },
+             "env": {
+                 "ASPNETCORE_ENVIRONMENT": "Development"
+             },
+             "sourceFileMap": {
+                 "/src": "${workspaceRoot}/"
+             },
+             "pipeTransport": {
+                 "pipeProgram": "docker",
+                 "debuggerPath": "/vsdbg/vsdbg",
+                 "pipeCwd": "${workspaceRoot}",
+                 "quoteArgs": false,
+                 "pipeArgs": [
+                     "exec",
+                     "-i",
+                     "perftest"
+                 ]
+             },
+             "postDebugTask": "Docker: Stop Container"
+         },
+         {
+             "name": "Native: Launch",
+             "type": "coreclr",
+             "request": "launch",
+             "preLaunchTask": "Native: Build",
+             "program": "${workspaceFolder}/bin/Debug/netcoreapp2.1/debug-performance-test.dll",
+             "args": [],
+             "cwd": "${workspaceFolder}",
+             "stopAtEntry": false,
+             "internalConsoleOptions": "openOnSessionStart",
+             "launchBrowser": {
+                 "enabled": true,
+                 "args": "${auto-detect-url}",
+                 "windows": {
+                     "command": "cmd.exe",
+                     "args": "/C start ${auto-detect-url}"
+                 },
+                 "osx": {
+                     "command": "open"
+                 },
+                 "linux": {
+                     "command": "xdg-open"
+                 }
+             },
+             "env": {
+                 "ASPNETCORE_ENVIRONMENT": "Development"
+             },
+             "sourceFileMap": {
+                 "/Views": "${workspaceFolder}/Views"
+             }
+         }
+     ]
+ }

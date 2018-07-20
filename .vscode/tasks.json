@@ -1,0 +1,77 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Docker: Build",
+            "command": "docker",
+            "type": "process",
+            "args": [
+                "build",
+                ".",
+                "-t",
+                "perftest"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Native: Build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Native: Run",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "run"
+            ],
+            "problemMatcher": "$msCompile",
+            "dependsOn": [
+                "Native: Build"
+            ],
+        },
+        {
+            "label": "Native: Restore",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "restore"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Docker: Run",
+            "command": "docker",
+            "type": "process",
+            "args": [
+                "run",
+                "--rm",
+                "-d",
+                "-p",
+                "5002:80",
+                "--name",
+                "perftest",
+                "perftest:latest"
+            ],
+            "dependsOn": [
+                "Docker: Build"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Docker: Stop Container",
+            "command": "docker",
+            "type": "process",
+            "args": [
+                "rm",
+                "-f",
+                "perftest",
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
