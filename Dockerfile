@@ -9,8 +9,8 @@ RUN apt-get update \
 
 WORKDIR /app
 EXPOSE 80
-#--------------Backend Build--------------
-FROM microsoft/dotnet:2.1-sdk AS backend-build
+#-------------Build--------------
+FROM microsoft/dotnet:2.1-sdk AS build
 
 WORKDIR /src
 
@@ -20,12 +20,13 @@ RUN dotnet restore
 COPY ./ ./
 RUN dotnet publish -c Debug -o /app
 
-#--------------Runtime Image--------------
+#--------------Runtime--------------
 FROM base AS final
 
 WORKDIR /app
 
-# Copy C# back-end 
-COPY --from=backend-build /app .
+# Copy from dotnet build.
+COPY --from=build /app .
 
+# vsdbg will launch the application, for use in a live environment, you'd start the application here.
 ENTRYPOINT tail -f /dev/null
