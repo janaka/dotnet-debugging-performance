@@ -71,3 +71,9 @@ There's two Launch Methods, Docker and Native.
 
 ## Actual behavior
  - The difference is noticable and increases with application size.
+
+Comparison using this application
+https://youtu.be/lkDnFPGOumM
+
+Comparison using a larger, 20,000 line application.
+https://youtu.be/V_jWtOHjvOg
