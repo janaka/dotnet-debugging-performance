@@ -5,9 +5,6 @@ project.lock.json
 *.pyc
 nupkg/
 
-# Visual Studio Code
-.vscode
-
 # User-specific files
 *.suo
 *.user
@@ -30,5 +27,3 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
-# Visual Studio 2015
-.vs/
